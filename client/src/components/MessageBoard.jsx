@@ -60,7 +60,7 @@ function MessageBoard() {
       </Text>
       <Stack spacing="xl">
         <ScrollArea.Autosize 
-          mah="70vh" 
+          mah="50vh" 
           viewportRef={viewport}
           onScrollPositionChange={handleScroll}
           styles={{

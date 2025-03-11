@@ -12,7 +12,12 @@ function MessageInput( {onMessageSubmit} ) {
         sender: 'user',
         text: messageText
       });
+    }
+    if (messageText.length < 500) {
       setMessageText('');
+    }
+    else {
+      
     }
   };
 
@@ -27,6 +32,7 @@ function MessageInput( {onMessageSubmit} ) {
       <Textarea
         placeholder="Type your message..."
         value={messageText}
+        error={messageText.length > 500 ? "Character limit exceeded (500 max)" : null}
         styles={(theme) => ({
           input: {
             backgroundColor: 'black',
