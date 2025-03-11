@@ -7,17 +7,13 @@ function MessageInput( {onMessageSubmit} ) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (messageText.trim()) {
+    // Only submit if text is not empty and under 500 chars
+    if (messageText.trim() && messageText.length <= 500) {
       onMessageSubmit({
         sender: 'user',
         text: messageText
       });
-    }
-    if (messageText.length < 500) {
       setMessageText('');
-    }
-    else {
-      
     }
   };
 
@@ -27,6 +23,7 @@ function MessageInput( {onMessageSubmit} ) {
       text: 'Test message'
     });
   };
+
   return (
     <form onSubmit={handleSubmit}>
       <Textarea
@@ -51,12 +48,7 @@ function MessageInput( {onMessageSubmit} ) {
             variant="filled"
             radius="xl"
             size="md"
-            sx={(theme) => ({
-              boxShadow: theme.shadows.glow,
-              '&:hover': {
-                boxShadow: '#0800ff',
-              },
-            })}
+            disabled={messageText.length > 500}
           >
             <FaArrowUp size={16} />
           </ActionIcon>

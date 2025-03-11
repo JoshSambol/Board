@@ -58,6 +58,9 @@ function MessageBoard() {
       >
        OpenBoard
       </Text>
+      <Text color="gray" size="sm" align="center">
+        Total messages: {messages.length}
+      </Text>
       <Stack spacing="xl">
         <ScrollArea.Autosize 
           mah="50vh" 
