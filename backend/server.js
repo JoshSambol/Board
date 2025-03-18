@@ -20,8 +20,8 @@ app.get('/messages',(req, res) =>{
     res.send('Message')
 })
 app.post('/messages',(req,res) =>{
-    req.body()
-    
+    const {message} = req.body
+    console.log(message)
 })
 connectdb()
 app.listen(port, () =>{
