@@ -1,32 +1,25 @@
 import { Box, Text, Stack, ScrollArea, ActionIcon } from '@mantine/core';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
+import axios from 'axios'
 import MessageInput from './MessageInput';
 import Message from './Message';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FaChevronDown } from "react-icons/fa";
 
 function MessageBoard() {
-  const [messages, setMessages] = useState([
-      {
-          sender: 'other',
-          text: 'Hello World'
-      },
-      {
-          sender: 'user',
-          text: 'Hello World'
-      },
-      {
-          sender: 'other',
-          text: 'Hello World'
-      },
-      {
-          sender: 'other',
-          text: 'Hello World'
-      }
-  ]);
+  const [messages, setMessages] = useState([]);
   const handleMessageSubmit = (message) => {
     setMessages([...messages, message]);
   };
+  useEffect(() =>{
+    axios.get('http://localhost:3000/api/messages')
+      .then((response) =>{
+        setMessages(response.sata)
+      })
+      .catch((error) =>{
+        console.log('Error fetching messages: ', error)
+      })
+  }, []);
   const viewport = useRef();
   const [showScrollButton, setShowScrollButton] = useState(false);
 
@@ -71,7 +64,13 @@ function MessageBoard() {
           }}
           scrollbarSize={8}
         >
-          <Message messages={messages} />
+          {messages.length > 0 ? (
+          messages.map((message) =>(
+            <Message key={message._id}messages={messages} />
+          ))
+          ) : (
+            <Text>No Messages Yet!</Text>
+          )}
         </ScrollArea.Autosize>
         <MessageInput onMessageSubmit={(message) => {
           handleMessageSubmit(message);

@@ -1,6 +1,6 @@
 import { Box, Blockquote } from '@mantine/core';
 
-function Message( {messages} ) {
+function Message( {messages, message} ) {
     return (
         <Box>
             {messages.map((message, index) => (
