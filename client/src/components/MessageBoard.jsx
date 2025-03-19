@@ -14,7 +14,7 @@ function MessageBoard() {
   useEffect(() =>{
     axios.get('http://localhost:3000/api/messages')
       .then((response) =>{
-        setMessages(response.sata)
+        setMessages(response.data)
       })
       .catch((error) =>{
         console.log('Error fetching messages: ', error)
@@ -66,7 +66,7 @@ function MessageBoard() {
         >
           {messages.length > 0 ? (
           messages.map((message) =>(
-            <Message key={message._id}messages={messages} />
+            <Message key={message._id} message={message} />
           ))
           ) : (
             <Text>No Messages Yet!</Text>

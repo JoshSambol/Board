@@ -1,11 +1,11 @@
 import { Box, Blockquote } from '@mantine/core';
 
-function Message( {messages, message} ) {
+function Message( { message} ) {
     return (
         <Box>
-            {messages.map((message, index) => (
+            
                 <Blockquote 
-                    key={index}
+                    key={message._id}
                     color={message.sender === 'user' ? '#1a31db' : 'gray'} 
                     mt="md"
                     styles={{
@@ -21,7 +21,6 @@ function Message( {messages, message} ) {
                 >
                     {message.text}
                 </Blockquote>
-            ))}
         </Box>
     )
 }
