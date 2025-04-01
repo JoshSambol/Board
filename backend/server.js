@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 import express from "express"
 import connectdb from "./config/db.js"
-
+import cors from "cors"
 //models import:
 import Message from "./Message.js"
 // const espress = require('express')
@@ -9,7 +9,7 @@ const app = express()
 const port = 3000
 
 dotenv.config()
-
+app.use(cors)
 //body parser
 app.use(express.json())
 
