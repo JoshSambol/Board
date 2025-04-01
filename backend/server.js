@@ -19,9 +19,16 @@ app.get('/',(req, res) =>{
 app.get('/messages',(req, res) =>{
     res.send('Message')
 })
-app.post('/messages',(req,res) =>{
+app.post('/messages', async (req,res) =>{
+    try {
     const {message} = req.body
     console.log(message)
+    const newMessage = new Message({message})
+    const response = await newMessage.save()
+    console.log(response)
+    } catch(error){
+        console.error(error)
+    }
 })
 connectdb()
 app.listen(port, () =>{
