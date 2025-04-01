@@ -16,8 +16,14 @@ app.use(express.json())
 app.get('/',(req, res) =>{
     res.send('Hello World!')
 })
-app.get('/messages',(req, res) =>{
-    res.send('Message')
+app.get('/messages', async (req, res) =>{
+    try {
+    const messages = await Message.find({})
+    res.status(200).json(messages)
+    } catch(error){
+        console.error(error)
+        res.status(404).json(error)
+    }
 })
 app.post('/messages', async (req,res) =>{
     try {
@@ -26,8 +32,11 @@ app.post('/messages', async (req,res) =>{
     const newMessage = new Message({message})
     const response = await newMessage.save()
     console.log(response)
+    res.status(200).json(response)
+    
     } catch(error){
         console.error(error)
+        res.status(404).json(error)
     }
 })
 connectdb()
