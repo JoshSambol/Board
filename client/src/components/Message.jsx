@@ -15,7 +15,7 @@ function Message( { message} ) {
                             maxWidth: '100%',
                             wordWrap: 'break-word',
                             whiteSpace: 'pre-wrap',
-                            padding: message.text.length < 50 ? '0.5rem' : '1rem'
+                            padding: '1rem' 
                         }
                     }}
                 >

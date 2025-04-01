@@ -12,8 +12,9 @@ function MessageBoard() {
     setMessages([...messages, message]);
   };
   useEffect(() =>{
-    axios.get('http://localhost:3000/api/messages')
+    axios.get('http://localhost:3000/messages')
       .then((response) =>{
+        console.log(response.data)
         setMessages(response.data)
       })
       .catch((error) =>{
@@ -66,7 +67,7 @@ function MessageBoard() {
         >
           {messages.length > 0 ? (
           messages.map((message) =>(
-            <Message key={message._id} message={message} />
+            <Message key={message._id} message={message.message} />
           ))
           ) : (
             <Text>No Messages Yet!</Text>
