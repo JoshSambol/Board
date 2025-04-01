@@ -66,8 +66,8 @@ function MessageBoard() {
           scrollbarSize={8}
         >
           {messages.length > 0 ? (
-          messages.map((message) =>(
-            <Message key={message._id} message={message.message} />
+          messages.map((m) =>(
+            <Message key={m._id} message={m} />
           ))
           ) : (
             <Text>No Messages Yet!</Text>

@@ -19,7 +19,7 @@ function Message( { message} ) {
                         }
                     }}
                 >
-                    {message.text}
+                    {message.message}
                 </Blockquote>
         </Box>
     )
