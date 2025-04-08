@@ -27,7 +27,9 @@ app.get('/messages', async (req, res) =>{
 })
 app.post('/messages', async (req,res) =>{
     try {
+    console.log(req.body)
     const {message} = req.body
+    console.log(req.body)
     console.log(message)
     const newMessage = new Message({message})
     const response = await newMessage.save()

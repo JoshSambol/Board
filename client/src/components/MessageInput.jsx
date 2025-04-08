@@ -20,7 +20,7 @@ function MessageInput( {onMessageSubmit} ) {
   const handleTestMessage = () => {
     onMessageSubmit({
       sender: 'other',
-      text: 'Test message'
+      text: 'Test message',
     });
   };
 

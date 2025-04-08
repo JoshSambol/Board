@@ -8,8 +8,19 @@ import { FaChevronDown } from "react-icons/fa";
 
 function MessageBoard() {
   const [messages, setMessages] = useState([]);
-  const handleMessageSubmit = (message) => {
-    setMessages([...messages, message]);
+  const handleMessageSubmit = async (message) => {
+    console.log('reload')
+    const SMS = {
+      message: message.text
+    }
+    await axios.post('http://localhost:3000/messages', SMS)
+    .then((response) =>{
+      console.log(response.data)
+      setMessages([...messages, response.data]);
+    })
+    .catch((error) =>{
+      console.log('Error posting messages: ', error)
+    })
   };
   useEffect(() =>{
     axios.get('http://localhost:3000/messages')
@@ -67,7 +78,7 @@ function MessageBoard() {
         >
           {messages.length > 0 ? (
           messages.map((m) =>(
-            <Message key={m._id} message={m} />
+            <Message message={m} />
           ))
           ) : (
             <Text>No Messages Yet!</Text>
