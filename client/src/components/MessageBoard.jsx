@@ -23,7 +23,7 @@ function MessageBoard() {
     })
   };
   useEffect(() =>{
-    axios.get('https://board-veg6.onrender.comn/messages')
+    axios.get('https://board-veg6.onrender.com/messages')
       .then((response) =>{
         console.log(response.data)
         setMessages(response.data)
