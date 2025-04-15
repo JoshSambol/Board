@@ -6,7 +6,7 @@ const messageSchema = new Schema({
         type: String,
         required: [true, 'Message is required'],
         trim: true,
-        minLength:5,
+        minLength: 1,
         maxLength: 500
     },
     created_at: {

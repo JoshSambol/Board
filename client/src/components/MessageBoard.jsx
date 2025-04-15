@@ -9,21 +9,21 @@ import { FaChevronDown } from "react-icons/fa";
 function MessageBoard() {
   const [messages, setMessages] = useState([]);
   const handleMessageSubmit = async (message) => {
-    console.log('reload')
+    console.log(message)
     const SMS = {
-      message: message.text
+      message: message.message
     }
-    await axios.post('http://localhost:3000/messages', SMS)
+    await axios.post('https://board-veg6.onrender.com/messages', SMS)
     .then((response) =>{
       console.log(response.data)
-      setMessages([...messages, response.data]);
+      setMessages([...messages, message]);
     })
     .catch((error) =>{
       console.log('Error posting messages: ', error)
     })
   };
   useEffect(() =>{
-    axios.get('http://localhost:3000/messages')
+    axios.get('https://board-veg6.onrender.comn/messages')
       .then((response) =>{
         console.log(response.data)
         setMessages(response.data)

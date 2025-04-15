@@ -1,6 +1,6 @@
 import { Box, Blockquote } from '@mantine/core';
 
-function Message( { message} ) {
+function Message( {message} ) {
     return (
         <Box>
             

@@ -11,7 +11,7 @@ function MessageInput( {onMessageSubmit} ) {
     if (messageText.trim() && messageText.length <= 500) {
       onMessageSubmit({
         sender: 'user',
-        text: messageText
+        message: messageText
       });
       setMessageText('');
     }
