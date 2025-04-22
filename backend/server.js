@@ -21,19 +21,19 @@ wss.on('connection', (ws) => {
     client.add(ws)
     console.log('Client connected via WebSocket');
   
-    ws.on('message', async (data) => {
-        const message = JSON.parse(data)
+    // ws.on('message', async (data) => {
+    //     const message = JSON.parse(data)
 
-        if (message.type === 'newMessage')
+    //     if (message.type === 'newMessage')
 
-            for(const client of clients) {
-                if(client.readyState === ws.OPEN) {
-                    client.send(JSON.stringify({ type: 'refresh'}))
-                }
-            }
-    //   console.log('Received:', message);
-    //   ws.send(`Echo: ${message}`); // Send a response back
-    });
+    //         for(const client of clients) {
+    //             if(client.readyState === ws.OPEN) {
+    //                 client.send(JSON.stringify({ type: 'refresh'}))
+    //             }
+    //         }
+    // //   console.log('Received:', message);
+    // //   ws.send(`Echo: ${message}`); // Send a response back
+    // });
   
     ws.on('close', () => {
         clients.delete(ws)
