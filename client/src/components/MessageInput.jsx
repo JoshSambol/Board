@@ -8,7 +8,7 @@ function MessageInput( {onMessageSubmit} ) {
   const handleSubmit = (e) => {
     e.preventDefault();
     // Only submit if text is not empty and under 500 chars
-    if (messageText.trim() && messageText.length <= 500) {
+    if (messageText.trim() && messageText.length <= 1000) {
       onMessageSubmit({
         sender: 'user',
         message: messageText
@@ -29,7 +29,7 @@ function MessageInput( {onMessageSubmit} ) {
       <Textarea
         placeholder="Type your message..."
         value={messageText}
-        error={messageText.length > 500 ? "Character limit exceeded (500 max)" : null}
+        error={messageText.length > 1000 ? "Character limit exceeded (1000 max)" : null}
         styles={(theme) => ({
           input: {
             backgroundColor: 'black',

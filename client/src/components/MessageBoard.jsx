@@ -5,9 +5,19 @@ import MessageInput from './MessageInput';
 import Message from './Message';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FaChevronDown } from "react-icons/fa";
-
+// websocket = new WebSocket("wss://board-veg6.onrender.com/messages", "protocolOne")
 function MessageBoard() {
   const [messages, setMessages] = useState([]);
+  const fetchMessages = async()=>{
+    await axios.get('https://board-veg6.onrender.com/messages')
+      .then((response) =>{
+        console.log(response.data)
+        setMessages(response.data)
+      })
+      .catch((error) =>{
+        console.log('Error fetching messages: ', error)
+      })
+  }
   const handleMessageSubmit = async (message) => {
     console.log(message)
     const SMS = {
@@ -23,14 +33,17 @@ function MessageBoard() {
     })
   };
   useEffect(() =>{
-    axios.get('https://board-veg6.onrender.com/messages')
-      .then((response) =>{
-        console.log(response.data)
-        setMessages(response.data)
-      })
-      .catch((error) =>{
-        console.log('Error fetching messages: ', error)
-      })
+    fetchMessages()
+    
+    const ws = new WebSocket('ws://localhost:3000')
+    ws.onmessage = (event) => {
+      const {type} = JSON.parse(event.data)
+      if (type === 'refresh') {
+        fetchMessages()
+      }
+    }
+
+    return () => ws.close()
   }, []);
   const viewport = useRef();
   const [showScrollButton, setShowScrollButton] = useState(false);
