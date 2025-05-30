@@ -139,7 +139,13 @@ function MessageBoard() {
               A full-stack, open-source, fully anonymous message board application.
             </Text>
             <Text size="sm" c="dimmed" ta="center">
-              Built with React, Node.js, Express, MongoDB, and WebSocket.
+              Built with{' '}
+              <Anchor href="https://react.dev" target="_blank" c="#0800ff">React</Anchor>,{' '}
+              <Anchor href="https://nodejs.org" target="_blank" c="#0800ff">Node.js</Anchor>,{' '}
+              <Anchor href="https://expressjs.com" target="_blank" c="#0800ff">Express</Anchor>,{' '}
+              <Anchor href="https://www.mongodb.com" target="_blank" c="#0800ff">MongoDB</Anchor>,{' '}
+              <Anchor href="https://developer.mozilla.org/en-US/docs/Web/API/WebSockets_API" target="_blank" c="#0800ff">WebSocket</Anchor>, and{' '}
+              <Anchor href="https://mantine.dev" target="_blank" c="#0800ff">Mantine</Anchor>.
             </Text>
             <Text size="sm" c="dimmed" ta="center">
               View the source code on{' '}
