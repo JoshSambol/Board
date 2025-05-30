@@ -1,4 +1,4 @@
-import { Box, Text, Stack, ScrollArea, ActionIcon } from '@mantine/core';
+import { Box, Text, Stack, ScrollArea, ActionIcon, Loader, Center } from '@mantine/core';
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios'
 import MessageInput from './MessageInput';
@@ -8,14 +8,18 @@ import { FaChevronDown } from "react-icons/fa";
 // websocket = new WebSocket("wss://board-veg6.onrender.com/messages", "protocolOne")
 function MessageBoard() {
   const [messages, setMessages] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
   const fetchMessages = async()=>{
+    setIsLoading(true);
     await axios.get('https://board-veg6.onrender.com/messages')
       .then((response) =>{
         console.log(response.data)
         setMessages(response.data)
+        setIsLoading(false);
       })
       .catch((error) =>{
         console.log('Error fetching messages: ', error)
+        setIsLoading(false);
       })
   }
   const handleMessageSubmit = async (message) => {
@@ -43,8 +47,19 @@ function MessageBoard() {
       }
     }
 
+    // Initial scroll to bottom
+    setTimeout(() => {
+      scrollToBottom();
+    }, 100);
+
     return () => ws.close()
   }, []);
+
+  // Add effect to scroll when messages change
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   const viewport = useRef();
   const [showScrollButton, setShowScrollButton] = useState(false);
 
@@ -90,19 +105,24 @@ function MessageBoard() {
           scrollbarSize={8}
         >
           {messages.length > 0 ? (
-          messages.map((m) =>(
-            <Message message={m} />
-          ))
+            messages.map((m) =>(
+              <Message message={m} />
+            ))
           ) : (
-            <Text>No Messages Yet!</Text>
+            <Center>
+              {isLoading ? (
+                <Stack align="center" spacing="xs">
+                  <Loader size="md" color="#0800ff" />
+                  <Text>Database starting, be patient...</Text>
+                </Stack>
+              ) : (
+                <Text>No Messages Yet!</Text>
+              )}
+            </Center>
           )}
         </ScrollArea.Autosize>
         <MessageInput onMessageSubmit={(message) => {
           handleMessageSubmit(message);
-          // Scroll to bottom whenever a new message is added
-          setTimeout(() => {
-            scrollToBottom();
-          }, 50); // Small delay to ensure DOM is updated
         }} />
       </Stack>
     </Box>
