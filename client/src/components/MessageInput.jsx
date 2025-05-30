@@ -54,13 +54,6 @@ function MessageInput( {onMessageSubmit} ) {
           </ActionIcon>
         }
       />
-      <Button
-        variant="filled"
-        color="#0800ff"
-        onClick={handleTestMessage}
-      >
-        Test other message
-      </Button>
 
     </form>
   );

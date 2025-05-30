@@ -1,4 +1,4 @@
-import { Box, Text, Stack, ScrollArea, ActionIcon, Loader, Center } from '@mantine/core';
+import { Box, Text, Stack, ScrollArea, ActionIcon, Loader, Center, Anchor, Paper } from '@mantine/core';
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios'
 import MessageInput from './MessageInput';
@@ -47,12 +47,21 @@ function MessageBoard() {
       }
     }
 
+    // Add polling interval
+    const pollInterval = setInterval(() => {
+      fetchMessages();
+    }, 10000); // Poll every 10 seconds
+
     // Initial scroll to bottom
     setTimeout(() => {
       scrollToBottom();
     }, 100);
 
-    return () => ws.close()
+    // Cleanup WebSocket, polling interval, and any pending timeouts
+    return () => {
+      ws.close();
+      clearInterval(pollInterval);
+    }
   }, []);
 
   // Add effect to scroll when messages change
@@ -124,6 +133,22 @@ function MessageBoard() {
         <MessageInput onMessageSubmit={(message) => {
           handleMessageSubmit(message);
         }} />
+        <Paper p="md" radius="md" withBorder style={{ backgroundColor: 'rgba(0, 0, 0, 0.2)' }}>
+          <Stack spacing="xs">
+            <Text size="sm" c="dimmed" ta="center">
+              A full-stack, open-source, fully anonymous message board application.
+            </Text>
+            <Text size="sm" c="dimmed" ta="center">
+              Built with React, Node.js, Express, MongoDB, and WebSocket.
+            </Text>
+            <Text size="sm" c="dimmed" ta="center">
+              View the source code on{' '}
+              <Anchor href="https://github.com/JoshSambol/Board" target="_blank" c="#0800ff">
+                GitHub
+              </Anchor>
+            </Text>
+          </Stack>
+        </Paper>
       </Stack>
     </Box>
   );
